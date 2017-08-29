@@ -1,0 +1,18 @@
+
+<% if flash[:error].present? %>
+	<p><%= flash[:error] %></p>
+<% end %>
+
+<div class="box col-10 offset-1">
+<h4>How would you like to help?</h4>
+<%= simple_form_for :donation do |f| %>
+   <%= f.input :donation_amount, :type => :integer, label: "Donation Amount ($)" %>
+   <h4>Enter your banking login information:</h4>
+   <%= f.input :bank_name, label: "Bank Name", collection: ["Bank of America", "Chase", "Wells Fargo", "fake"] %>
+   <%= f.input :username, label: "Username" %>
+   <%= f.input :password, label: "Password" %>
+
+  <%= f.submit "DONATE!",class: 'btn btn-outline-info', data: { confirm: 'Please confirm donation processing!' } %>
+<% end %>
+</div>
+

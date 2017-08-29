@@ -1,0 +1,39 @@
+<% if flash[:error].present? %>
+  <p><%= flash[:error] %></p>
+<% end %>
+
+<div class="box col-10 offset-1">
+<h4>Please Add Your Information to Process Payment</h4>
+
+
+<%= simple_form_for :document do |f| %>
+
+  <%= f.input :email, :as => :hidden, :input_html => { :value => current_user.email } %>
+  <%= f.input :phone_number, :as => :hidden, :input_html => { :value => current_user.phone_number } %>
+   <%= f.input :ip, :as => :hidden, :input_html => { :value => '127.0.0.1'} %>
+   <%= f.input :name, :as => :hidden, :input_html => { :value => current_user.legal_name } %>
+   <%= f.input :entity_type, label: "Gender", collection: ["M", "F"] %>
+   <%= f.input :entity_scope, label: "Occupation", collection: ["Not Known", "Computers/Technology"] %>
+   <%= f.input :birth_day, label: "Birth Day", placeholder: "01" %>
+   <%= f.input :birth_month, label: "Birth Month", placeholder: "01" %>
+   <%= f.input :birth_year, label: "Birth Year", placeholder: "1989" %>
+   <%= f.input :address_street, label: "Street Address", placeholder: "123 Maple Ave" %>
+   <%= f.input :address_city, label: "City", placeholder: "Century City" %>
+   <%= f.input :address_subdivision, label: "State", placeholder: "AZ"%>
+   <%= f.input :address_postal_code, label: "Zip Code", placeholder: "96123" %>
+   <%= f.input :address_country_code, label: "Country", collection: ["US", "Other"] %>
+   <%= f.input :ssn, :as => :string, label: "Last 4 Digits of SSN" %>
+   <%= f.input :govt_id, :as => :file, label: "Government ID" %>
+
+  <%= f.submit "Verify Me", class: 'btn btn-outline-info' %>
+<% end %>
+
+</div>
+
+
+
+
+
+
+
+

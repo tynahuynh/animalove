@@ -51,3 +51,13 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'synapse_pay_rest'
+gem "figaro"
+gem 'devise'
+gem 'simple_form'
+gem 'popper_js', '~> 1.11.1'
+gem 'bootstrap' , :git => 'https://github.com/twbs/bootstrap-rubygem.git', :ref => 'e1c74fd617119811e7cb12fd80502b5538f4462b'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.3.3'
+end
