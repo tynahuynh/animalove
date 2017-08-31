@@ -8,8 +8,8 @@
 
 <%= simple_form_for :document do |f| %>
 
-  <%= f.input :email, :as => :hidden, :input_html => { :value => current_user.email } %>
-  <%= f.input :phone_number, :as => :hidden, :input_html => { :value => current_user.phone_number } %>
+   <%= f.input :email, :as => :hidden, :input_html => { :value => current_user.email } %>
+   <%= f.input :phone_number, :as => :hidden, :input_html => { :value => current_user.phone_number } %>
    <%= f.input :ip, :as => :hidden, :input_html => { :value => '127.0.0.1'} %>
    <%= f.input :name, :as => :hidden, :input_html => { :value => current_user.legal_name } %>
    <%= f.input :entity_type, label: "Gender", collection: ["M", "F"] %>
