@@ -1,5 +1,6 @@
 class DonationsController < ApplicationController
 	before_action :authenticate_user!
+	before_action :require_documents
 
 	def new	
 	end
@@ -40,4 +41,14 @@ class DonationsController < ApplicationController
 	    redirect_to donations_path
 
 	end
+
+	private
+
+	def require_documents
+		@user = SynapsePayRest::User.find(client: $client, id: current_user.synapse_id )
+    	unless @user.permission == "SEND-AND-RECEIVE"
+	      	flash[:error] = "Please verify yourself"
+	      	redirect_to documents_path# halts request cycle
+	    end
+    end
 end
