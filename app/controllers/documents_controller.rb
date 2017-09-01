@@ -30,7 +30,7 @@ class DocumentsController < ApplicationController
 
 		virtual_doc = SynapsePayRest::VirtualDocument.create(
 		  type:  'SSN',
-		  value: params[:document][:ssn].to_s
+		  value: params[:document][:ssn]
 		)
 
 		@base_doc = @base_doc.add_virtual_documents(virtual_doc)

@@ -18,7 +18,7 @@ class DonationsController < ApplicationController
 
 
 		#to help with MFA verification -- my implement user input later
-		@nodes = @nodes.answer_mfa('test_answer')
+		#@nodes = @nodes.answer_mfa('test_answer')
 
 
 
@@ -44,11 +44,12 @@ class DonationsController < ApplicationController
 
 	private
 
+	#requires documents to be verified first
 	def require_documents
 		@user = SynapsePayRest::User.find(client: $client, id: current_user.synapse_id )
     	unless @user.permission == "SEND-AND-RECEIVE"
 	      	flash[:error] = "Please verify yourself"
-	      	redirect_to documents_path# halts request cycle
+	      	redirect_to documents_path
 	    end
     end
 end
