@@ -12,9 +12,14 @@ class DonationsController < ApplicationController
 		  		password:                 params[:donation][:password]
 		}
 
-		user = SynapsePayRest::User.find(client: $client, id: current_user.synapse_id )
-		@nodes = user.create_ach_us_nodes_via_bank_login(login_info)
-		
+		@user = SynapsePayRest::User.find(client: $client, id: current_user.synapse_id )
+		@nodes = @user.create_ach_us_nodes_via_bank_login(login_info)
+
+
+		#to help with MFA verification -- my implement user input later
+		@nodes = @nodes.answer_mfa('test_answer')
+
+
 
 		node = @nodes.first
 

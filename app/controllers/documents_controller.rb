@@ -24,26 +24,32 @@ class DocumentsController < ApplicationController
 		}
 	
 
-		user = SynapsePayRest::User.find(client: $client, id: current_user.synapse_id )
-		base_doc = user.create_base_document(args)
+		@user = SynapsePayRest::User.find(client: $client, id: current_user.synapse_id )
+		@base_doc = @user.create_base_document(args)
 
 
 		virtual_doc = SynapsePayRest::VirtualDocument.create(
 		  type:  'SSN',
-		  value: params[:document][:ssn]
+		  value: params[:document][:ssn].to_s
 		)
 
-		base_doc = base_doc.add_virtual_documents(virtual_doc)
+		@base_doc = @base_doc.add_virtual_documents(virtual_doc)
 
 		physical_doc = SynapsePayRest::PhysicalDocument.create(
 			  type:  'GOVT_ID',
 			  file_path: params[:document][:govt_id].path
 		)
 
-		base_doc = base_doc.add_physical_documents(physical_doc)
+		@base_doc = @base_doc.add_physical_documents(physical_doc)
+		@user = @base_doc.user
 
-
-		redirect_to donations_path
+		#Check virtual and Physical docs
+		if @user.permission == "SEND-AND-RECEIVE"
+			redirect_to donations_path
+		else
+			flash[:error] = "Invalid SSN and/OR Gov ID"
+			redirect_to documents_path
+		end
 
 		
 		rescue SynapsePayRest::Error => e
