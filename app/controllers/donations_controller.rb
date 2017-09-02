@@ -17,8 +17,10 @@ class DonationsController < ApplicationController
 		@nodes = @user.create_ach_us_nodes_via_bank_login(login_info)
 
 
-		#to help with MFA verification -- my implement user input later
-		#@nodes = @nodes.answer_mfa('test_answer')
+		#to help with MFA verification -- may implement user input later
+		if !@nodes.kind_of?(Array) && @nodes.mfa_verified == false
+			@nodes = @nodes.answer_mfa('test_answer')
+		end
 
 
 
